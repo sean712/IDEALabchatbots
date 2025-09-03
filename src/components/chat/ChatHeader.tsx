@@ -13,8 +13,7 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({ bot, onClearChat }) => {
       <div className="flex items-center">
         <User className="h-6 w-6 mr-3 text-imperial-teal" />
         <div>
-          <h2 className="text-xl font-semibold">{bot.name}</h2>
-          <p className="text-imperial-teal text-sm font-medium">{bot.module} • {bot.program}</p>
+          <h2 className="text-xl font-semibold">{bot.module}</h2>
         </div>
       </div>
       <button

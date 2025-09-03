@@ -52,12 +52,9 @@ const ChatPage: React.FC = () => {
         
         {messages.length === 0 && (
           <div className="p-8 text-center bg-gray-50 flex-1 flex flex-col justify-center items-center">
-            <h2 className="text-2xl font-semibold text-imperial-navy mb-4">
-              Welcome to {bot.module}
-            </h2>
             <div className="max-w-2xl mx-auto mb-8">
               <p className="text-gray-700 mb-6">
-                I'm your AI teaching assistant for {bot.module} in the {bot.program} programme. I'm here to help you with concepts, strategies, case studies, or get assistance with your assignments.
+                This is an AI assistant for {bot.module} designed to answer your questions about the module content.
               </p>
             </div>
             <SamplePrompts samplePrompts={bot.samplePrompts} onPromptClick={handleSamplePrompt} />
