@@ -63,7 +63,7 @@ const LandingPage: React.FC = () => {
                           <h3 className="font-semibold text-gray-900 text-lg">
                             {bot.name}
                           </h3>
-                          <p className="text-sm text-gray-600">{bot.instructor}</p>
+                          <p className="text-sm text-gray-600">AI Teaching Assistant</p>
                         </div>
                       </div>
                       

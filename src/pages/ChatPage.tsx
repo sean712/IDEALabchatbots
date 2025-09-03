@@ -57,7 +57,7 @@ const ChatPage: React.FC = () => {
             </h2>
             <div className="max-w-2xl mx-auto mb-8">
               <p className="text-gray-700 mb-6">
-                I'm {bot.instructor}, and I'm here to help you with your {bot.module} studies in the {bot.program} programme. You can ask me about concepts, strategies, case studies, or get help with your assignments.
+                I'm your AI teaching assistant for {bot.module} in the {bot.program} programme. I'm here to help you with concepts, strategies, case studies, or get assistance with your assignments.
               </p>
             </div>
             <SamplePrompts samplePrompts={bot.samplePrompts} onPromptClick={handleSamplePrompt} />
