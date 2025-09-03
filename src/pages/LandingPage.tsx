@@ -88,23 +88,6 @@ const LandingPage: React.FC = () => {
           ))}
         </div>
 
-        <div className="mt-16 text-center">
-          <div className="bg-white rounded-lg p-8 shadow-md max-w-2xl mx-auto">
-            <Bot className="h-12 w-12 text-imperial-teal mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              How It Works
-            </h3>
-            <p className="text-gray-600 mb-4">
-              Each AI teaching assistant has been specifically trained on their respective modules. 
-              Click on any bot above to start a conversation and get personalized help with your studies.
-            </p>
-            <div className="flex justify-center space-x-6 text-sm text-gray-500">
-              <span>• 24/7 Availability</span>
-              <span>• Module-Specific Knowledge</span>
-              <span>• Instant Responses</span>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
