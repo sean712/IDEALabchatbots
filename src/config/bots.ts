@@ -67,7 +67,7 @@ export const bots: BotConfig[] = [
     id: 'OmarBotSCRM',
     name: 'OmarBot Services & CRM',
     module: 'Services and Customer Relationship Management',
-    program: 'Specialized Masters',
+    program: 'Strategic Marketing Online',
     assistantId: 'asst_GHnZv1rU31arOasLdS8NezdE',
     instructor: 'Omar Merlo Support Bot',
     description: 'Explore services marketing and customer relationship management. This AI assistant is trained to help with your Services and CRM studies.',
