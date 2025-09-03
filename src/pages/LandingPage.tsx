@@ -30,7 +30,7 @@ const LandingPage: React.FC = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Imperial Business School AI Teaching Assistants
+            IDEA Lab Chatbots
           </h1>
         </div>
 
