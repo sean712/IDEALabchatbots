@@ -32,9 +32,6 @@ const LandingPage: React.FC = () => {
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
             Imperial Business School AI Teaching Assistants
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Get personalized support from our AI-powered teaching assistants. Each bot is tailored to specific modules and designed to enhance your learning experience.
-          </p>
         </div>
 
         <div className="space-y-12">
