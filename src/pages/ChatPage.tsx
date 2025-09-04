@@ -19,6 +19,8 @@ const ChatPage: React.FC = () => {
   // Check if test mode is enabled via URL parameter
   const isTestMode = searchParams.get('test') === 'true';
 
+  const { messages, isLoading, error, sendMessage, initializeChat, clearChat } = useChat(bot, isTestMode);
+
   // Redirect to landing page if bot not found
   if (!bot) {
     return <Navigate to="/" replace />;
