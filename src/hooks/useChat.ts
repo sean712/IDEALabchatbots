@@ -5,7 +5,7 @@ import { openAIService } from '../services/openai';
 import { useAppContext } from '../context/AppContext';
 import { conversationStorageService } from '../services/conversationStorage';
 
-export const useChat = (bot: BotConfig) => {
+export const useChat = (bot: BotConfig, isTestMode: boolean = false) => {
   const {
     chatMessages,
     setChatMessages,
@@ -76,12 +76,14 @@ export const useChat = (bot: BotConfig) => {
 
       setChatMessages(prev => [...prev, assistantMessage]);
 
-      // Save the complete updated conversation to Supabase
-      setChatMessages(currentMessages => {
-        const updatedMessages = [...currentMessages];
-        conversationStorageService.saveConversation(threadId, updatedMessages, bot.id, bot.name);
-        return updatedMessages;
-      });
+      // Save the complete updated conversation to Supabase (only if not in test mode)
+      if (!isTestMode) {
+        setChatMessages(currentMessages => {
+          const updatedMessages = [...currentMessages];
+          conversationStorageService.saveConversation(threadId, updatedMessages, bot.id, bot.name);
+          return updatedMessages;
+        });
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to send message');
       console.error('Error sending message:', err);

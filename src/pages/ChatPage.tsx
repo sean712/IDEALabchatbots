@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Navigate } from 'react-router-dom';
+import { useParams, Navigate, useSearchParams } from 'react-router-dom';
 import { useChat } from '../hooks/useChat';
 import { getBotById } from '../config/bots';
 import ChatHeader from '../components/chat/ChatHeader';
@@ -11,16 +11,20 @@ import { useAppContext } from '../context/AppContext';
 
 const ChatPage: React.FC = () => {
   const { botId } = useParams<{ botId: string }>();
+  const [searchParams] = useSearchParams();
   const bot = getBotById(botId || '');
   const [input, setInput] = useState('');
   const { setChatMessages, setThreadId, setError } = useAppContext();
+
+  // Check if test mode is enabled via URL parameter
+  const isTestMode = searchParams.get('test') === 'true';
 
   // Redirect to landing page if bot not found
   if (!bot) {
     return <Navigate to="/" replace />;
   }
 
-  const { messages, isLoading, error, sendMessage, initializeChat, clearChat } = useChat(bot);
+  const { messages, isLoading, error, sendMessage, initializeChat, clearChat } = useChat(bot, isTestMode);</action>
 
   // Clear chat state when switching to a different bot
   useEffect(() => {
