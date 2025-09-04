@@ -130,6 +130,23 @@ export const bots: BotConfig[] = [
       "What funding options are available for startups?",
       "How do you build and lead an entrepreneurial team?"
     ]
+  },
+  {
+    id: 'RichardBotGMBAME',
+    name: 'RichardBot Managerial Economics',
+    module: 'Managerial Economics',
+    program: 'Global MBA',
+    assistantId: 'asst_GRgpxWyfSVq0HFWf2i7jbIS6',
+    instructor: 'Richard Green Support Bot',
+    description: 'Master economic principles and analytical frameworks for effective managerial decision-making. This AI assistant is trained to help with your Managerial Economics studies in the Global MBA program.',
+    backgroundColor: 'from-red-50 to-rose-50',
+    primaryColor: 'red',
+    samplePrompts: [
+      "How do I analyze market structures and their impact on pricing strategies?",
+      "What are the key principles of demand and supply analysis for managers?",
+      "Explain how to use economic models for business forecasting",
+      "How do externalities affect managerial decision-making processes?"
+    ]
   }
 ];
 
