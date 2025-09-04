@@ -61,20 +61,41 @@ export const useChat = (bot: BotConfig, isTestMode: boolean = false) => {
       timestamp: new Date(),
     };
 
-    setChatMessages(prev => [...prev, userMessage]);
+    // Add user message and create placeholder assistant message
+    const assistantMessage: Message = {
+      role: 'assistant',
+      content: '',
+      timestamp: new Date(),
+      isStreaming: true,
+    };
+
+    setChatMessages(prev => [...prev, userMessage, assistantMessage]);
     setIsLoading(true);
     setError(null);
 
     try {
-      const response = await openAIService.sendMessage(threadId, content);
-      
-      const assistantMessage: Message = {
-        role: 'assistant',
-        content: response,
-        timestamp: new Date(),
-      };
+      const response = await openAIService.sendMessage(threadId, content, (partialResponse: string) => {
+        // Update the streaming message content in real-time
+        setChatMessages(prev => {
+          const updated = [...prev];
+          const lastMessage = updated[updated.length - 1];
+          if (lastMessage && lastMessage.role === 'assistant' && lastMessage.isStreaming) {
+            lastMessage.content = partialResponse;
+          }
+          return updated;
+        });
+      });
 
-      setChatMessages(prev => [...prev, assistantMessage]);
+      // Mark streaming as complete
+      setChatMessages(prev => {
+        const updated = [...prev];
+        const lastMessage = updated[updated.length - 1];
+        if (lastMessage && lastMessage.role === 'assistant') {
+          lastMessage.content = response;
+          lastMessage.isStreaming = false;
+        }
+        return updated;
+      });
 
       // Save the complete updated conversation to Supabase (only if not in test mode)
       if (!isTestMode) {
@@ -85,6 +106,8 @@ export const useChat = (bot: BotConfig, isTestMode: boolean = false) => {
         });
       }
     } catch (err) {
+      // Remove the streaming assistant message on error
+      setChatMessages(prev => prev.slice(0, -1));
       setError(err instanceof Error ? err.message : 'Failed to send message');
       console.error('Error sending message:', err);
     } finally {
