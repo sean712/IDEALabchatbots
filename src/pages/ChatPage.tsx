@@ -24,7 +24,6 @@ const ChatPage: React.FC = () => {
     return <Navigate to="/" replace />;
   }
 
-  const { messages, isLoading, error, sendMessage, initializeChat, clearChat } = useChat(bot, isTestMode);</action>
 
   // Clear chat state when switching to a different bot
   useEffect(() => {
