@@ -10,10 +10,14 @@ interface MessageListProps {
 
 const MessageList: React.FC<MessageListProps> = ({ messages }) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const { isLoading } = useAppContext();
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    // Use scrollTop instead of scrollIntoView to prevent parent page scrolling
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+    }
   };
 
   useEffect(() => {
@@ -21,7 +25,10 @@ const MessageList: React.FC<MessageListProps> = ({ messages }) => {
   }, [messages]);
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 bg-[#f7f9fc]">
+    <div 
+      ref={scrollContainerRef}
+      className="flex-1 overflow-y-auto p-6 bg-[#f7f9fc]"
+    >
       <div className="max-w-4xl mx-auto">
         {messages.map((message, index) => (
           <ChatMessage key={index} message={message} />
