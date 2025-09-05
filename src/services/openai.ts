@@ -107,7 +107,7 @@ class OpenAIService {
                 }
                 
                 // Remove all citation markers from the text
-                responseText = responseText.replace(/\【\d+:\d+†[^】]*\】/g, '');
+                responseText = responseText.replace(/【\d+:\d+†[^】]*】/g, '');
                 
                 // Add sources at the end of the response
                 if (sources.length > 0) {
@@ -119,7 +119,7 @@ class OpenAIService {
                 onUpdate(fullResponse);
               } else {
                 // If no annotations, just clean up any citation markers that might be in fullResponse
-                fullResponse = fullResponse.replace(/\【\d+:\d+†[^】]*\】/g, '');
+                fullResponse = fullResponse.replace(/【\d+:\d+†[^】]*】/g, '');
                 if (sources.length > 0) {
                   const uniqueSources = [...new Set(sources)];
                   fullResponse += '\n\n**Sources:**\n' + uniqueSources.map(source => `• ${source}`).join('\n');
@@ -208,7 +208,7 @@ class OpenAIService {
                 }
                 
                 // Remove all citation markers from the text
-                responseText = responseText.replace(/\【\d+:\d+†[^】]*\】/g, '');
+                responseText = responseText.replace(/【\d+:\d+†[^】]*】/g, '');
                 
                 // Add sources at the end of the response
                 if (sources.length > 0) {
@@ -220,7 +220,7 @@ class OpenAIService {
                 onUpdate(fullResponse);
               } else {
                 // If no annotations, just clean up any citation markers that might be in fullResponse
-                fullResponse = fullResponse.replace(/\【\d+:\d+†[^】]*\】/g, '');
+                fullResponse = fullResponse.replace(/【\d+:\d+†[^】]*】/g, '');
                 if (sources.length > 0) {
                   const uniqueSources = [...new Set(sources)];
                   fullResponse += '\n\n**Sources:**\n' + uniqueSources.map(source => `• ${source}`).join('\n');
