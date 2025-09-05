@@ -61,50 +61,33 @@ export const useChat = (bot: BotConfig, isTestMode: boolean = false) => {
       timestamp: new Date(),
     };
 
-    // Add empty assistant message immediately for streaming
-    const assistantMessage: Message = {
-      role: 'assistant',
-      content: '',
-      timestamp: new Date(),
-    };
-
-    setChatMessages(prev => [...prev, userMessage, assistantMessage]);
+    setChatMessages(prev => [...prev, userMessage]);
     setIsLoading(true);
     setError(null);
 
     try {
-      await openAIService.sendMessage(
-        threadId, 
-        content,
-        // onContentUpdate callback
-        (streamContent: string) => {
-          setChatMessages(prev => {
-            const newMessages = [...prev];
-            const lastMessage = newMessages[newMessages.length - 1];
-            if (lastMessage && lastMessage.role === 'assistant') {
-              lastMessage.content = streamContent;
-            }
-            return newMessages;
-          });
-        },
-        // onComplete callback
-        () => {
-          setIsLoading(false);
-          
-          // Save the complete conversation to Supabase (only if not in test mode)
-          if (!isTestMode) {
-            setChatMessages(currentMessages => {
-              conversationStorageService.saveConversation(threadId, currentMessages, bot.id, bot.name);
-              return currentMessages;
-            });
-          }
-        }
-      );
+      const response = await openAIService.sendMessage(threadId, content);
+      
+      const assistantMessage: Message = {
+        role: 'assistant',
+        content: response,
+        timestamp: new Date(),
+      };
+
+      setChatMessages(prev => [...prev, assistantMessage]);
+
+      // Save the complete updated conversation to Supabase (only if not in test mode)
+      if (!isTestMode) {
+        setChatMessages(currentMessages => {
+          const updatedMessages = [...currentMessages];
+          conversationStorageService.saveConversation(threadId, updatedMessages, bot.id, bot.name);
+          return updatedMessages;
+        });
+      }
     } catch (err) {
-      // Remove the empty assistant message if there was an error
-      setChatMessages(prev => prev.slice(0, -1));
       setError(err instanceof Error ? err.message : 'Failed to send message');
       console.error('Error sending message:', err);
+    } finally {
       setIsLoading(false);
     }
   }, [threadId, setChatMessages, setIsLoading, setError, bot.id, bot.name]);
