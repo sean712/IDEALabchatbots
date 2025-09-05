@@ -67,7 +67,6 @@ class OpenAIService {
         });
 
         let fullResponse = '';
-        const sources: string[] = [];
 
         run
           .on('textCreated', () => {
@@ -87,50 +86,10 @@ class OpenAIService {
               // Handle file search tool calls if needed
             }
           })
-          .on('messageDone', async (message) => {
-            // Process citations when message is complete
-            if (message.content && message.content.length > 0) {
-              const textContent = message.content[0];
-              if (textContent.type === 'text' && textContent.text.annotations) {
-                let responseText = textContent.text.value; // Use the actual message content with annotations
-                
-                for (const annotation of textContent.text.annotations) {
-                  if (annotation.type === 'file_citation') {
-                    try {
-                      const fileId = annotation.file_citation?.file_id;
-                      if (fileId && this.client) {
-                        const file = await this.client.files.retrieve(fileId);
-                        const fileName = file.filename || 'Unknown Source';
-                        sources.push(fileName);
-                      }
-                    } catch (error) {
-                      console.warn('Could not retrieve file information for citation:', error);
-                      sources.push('Unknown Source');
-                    }
-                  }
-                }
-                
-                // Remove all citation markers from the text
-                responseText = responseText.replace(/【\d+:\d+†[^】]*】/g, '');
-                
-                // Add sources at the end of the response
-                if (sources.length > 0) {
-                  const uniqueSources = [...new Set(sources)];
-                  responseText += '\n\n**Sources:**\n' + uniqueSources.map(source => `• ${source}`).join('\n');
-                }
-                
-                fullResponse = responseText;
-                onUpdate(fullResponse);
-              } else {
-                // If no annotations, just clean up any citation markers that might be in fullResponse
-                fullResponse = fullResponse.replace(/【\d+:\d+†[^】]*】/g, '');
-                if (sources.length > 0) {
-                  const uniqueSources = [...new Set(sources)];
-                  fullResponse += '\n\n**Sources:**\n' + uniqueSources.map(source => `• ${source}`).join('\n');
-                }
-                onUpdate(fullResponse);
-              }
-            }
+          .on('messageDone', () => {
+            // Clean up any citation markers from the final response
+            fullResponse = fullResponse.replace(/【\d+:\d+†[^】]*】/g, '');
+            onUpdate(fullResponse);
           })
           .on('end', () => {
             resolve(fullResponse);
