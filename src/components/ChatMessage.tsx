@@ -10,7 +10,6 @@ interface ChatMessageProps {
 
 const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
   const isUser = message.role === 'user';
-  const isStreaming = message.isStreaming;
 
   return (
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-6 animate-fade-in`}>
@@ -27,7 +26,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
           {isUser ? (
             <User className="w-5 h-5 text-imperial-navy" />
           ) : (
-            <Bot className={`w-5 h-5 text-imperial-teal ${isStreaming ? 'animate-pulse' : ''}`} />
+            <Bot className="w-5 h-5 text-imperial-teal" />
           )}
         </div>
         
@@ -39,26 +38,15 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
           }`}
         >
           <div className="prose prose-sm max-w-none">
-            {message.content ? (
-              <ReactMarkdown
-                components={{
-                  p: ({ children }) => <span className={`block ${isUser ? 'text-white' : ''}`}>{children}</span>,
-                  strong: ({ children }) => <strong className={`font-semibold ${isUser ? 'text-white' : ''}`}>{children}</strong>,
-                  em: ({ children }) => <em className={`italic ${isUser ? 'text-white' : ''}`}>{children}</em>,
-                  ul: ({ children }) => <ul className={`list-disc list-inside mt-2 ${isUser ? 'text-white' : ''}`}>{children}</ul>,
-                  li: ({ children }) => <li className={`${isUser ? 'text-white' : ''}`}>{children}</li>,
-                }}
-              >
-                {message.content}
-              </ReactMarkdown>
-            ) : isStreaming ? (
-              <span className={`${isUser ? 'text-white' : 'text-gray-500'} italic`}>
-                Thinking...
-              </span>
-            ) : null}
-            {isStreaming && message.content && (
-              <span className={`inline-block w-2 h-4 ml-1 ${isUser ? 'bg-white' : 'bg-gray-800'} animate-pulse`} />
-            )}
+            <ReactMarkdown
+              components={{
+                p: ({ children }) => <span className={`block ${isUser ? 'text-white' : ''}`}>{children}</span>,
+                strong: ({ children }) => <strong className={`font-semibold ${isUser ? 'text-white' : ''}`}>{children}</strong>,
+                em: ({ children }) => <em className={`italic ${isUser ? 'text-white' : ''}`}>{children}</em>,
+              }}
+            >
+              {message.content}
+            </ReactMarkdown>
           </div>
           <div
             className={`text-xs mt-1 ${
@@ -66,7 +54,6 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
             }`}
           >
             {format(message.timestamp, 'HH:mm')}
-            {isStreaming && <span className="ml-2 text-xs opacity-60">streaming...</span>}
           </div>
         </div>
       </div>
