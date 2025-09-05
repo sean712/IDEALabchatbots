@@ -49,11 +49,11 @@ export const bots: BotConfig[] = [
   {
     id: 'OmarBotSMM',
     name: 'OmarBot Strategic Marketing',
-    module: 'Strategic Marketing Management',
+    module: 'Strategic Market Management',
     program: 'Strategic Marketing Online',
     assistantId: 'asst_opIj7dFgXV7h1LG2Blz3bDVG',
     instructor: 'Omar Merlo Support Bot',
-    description: 'Master strategic marketing concepts and frameworks. This AI assistant is trained to help with your Strategic Marketing Management studies.',
+    description: 'Master strategic marketing concepts and frameworks. This AI assistant is trained to help with your Strategic Market Management studies.',
     backgroundColor: 'from-green-50 to-emerald-50',
     primaryColor: 'green',
     samplePrompts: [
