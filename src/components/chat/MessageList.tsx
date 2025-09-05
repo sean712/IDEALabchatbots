@@ -1,8 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import ChatMessage from '../ChatMessage';
 import { Message } from '../../types';
-import TypingIndicator from './TypingIndicator';
-import { useAppContext } from '../../context/AppContext';
 
 interface MessageListProps {
   messages: Message[];
@@ -10,7 +8,6 @@ interface MessageListProps {
 
 const MessageList: React.FC<MessageListProps> = ({ messages }) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const { isLoading } = useAppContext();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -26,7 +23,6 @@ const MessageList: React.FC<MessageListProps> = ({ messages }) => {
         {messages.map((message, index) => (
           <ChatMessage key={index} message={message} />
         ))}
-        {isLoading && <TypingIndicator />}
         <div ref={messagesEndRef} />
       </div>
     </div>
