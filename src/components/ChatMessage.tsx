@@ -45,6 +45,8 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
                   p: ({ children }) => <span className={`block ${isUser ? 'text-white' : ''}`}>{children}</span>,
                   strong: ({ children }) => <strong className={`font-semibold ${isUser ? 'text-white' : ''}`}>{children}</strong>,
                   em: ({ children }) => <em className={`italic ${isUser ? 'text-white' : ''}`}>{children}</em>,
+                  ul: ({ children }) => <ul className={`list-disc list-inside mt-2 ${isUser ? 'text-white' : ''}`}>{children}</ul>,
+                  li: ({ children }) => <li className={`${isUser ? 'text-white' : ''}`}>{children}</li>,
                 }}
               >
                 {message.content}

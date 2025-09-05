@@ -98,11 +98,13 @@ class OpenAIService {
                         const file = await this.client.files.retrieve(fileId);
                         const fileName = file.filename || 'Unknown Source';
                         sources.push(fileName);
+                        // Remove the citation marker from the text
                         responseText = responseText.replace(annotation.text, '');
                       }
                     } catch (error) {
                       console.warn('Could not retrieve file information for citation:', error);
                       sources.push('Unknown Source');
+                      // Remove the citation marker from the text
                       responseText = responseText.replace(annotation.text, '');
                     }
                   }
@@ -111,7 +113,7 @@ class OpenAIService {
                 // Add sources at the end of the response
                 if (sources.length > 0) {
                   const uniqueSources = [...new Set(sources)];
-                  responseText += '\n\n' + uniqueSources.map(source => `(Source: ${source})`).join('\n');
+                  responseText += '\n\n**Sources:**\n' + uniqueSources.map(source => `• ${source}`).join('\n');
                 }
                 
                 fullResponse = responseText;
@@ -190,11 +192,13 @@ class OpenAIService {
                         const file = await this.client.files.retrieve(fileId);
                         const fileName = file.filename || 'Unknown Source';
                         sources.push(fileName);
+                        // Remove the citation marker from the text
                         responseText = responseText.replace(annotation.text, '');
                       }
                     } catch (error) {
                       console.warn('Could not retrieve file information for citation:', error);
                       sources.push('Unknown Source');
+                      // Remove the citation marker from the text
                       responseText = responseText.replace(annotation.text, '');
                     }
                   }
@@ -203,7 +207,7 @@ class OpenAIService {
                 // Add sources at the end of the response
                 if (sources.length > 0) {
                   const uniqueSources = [...new Set(sources)];
-                  responseText += '\n\n' + uniqueSources.map(source => `(Source: ${source})`).join('\n');
+                  responseText += '\n\n**Sources:**\n' + uniqueSources.map(source => `• ${source}`).join('\n');
                 }
                 
                 fullResponse = responseText;
