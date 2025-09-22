@@ -147,6 +147,23 @@ export const bots: BotConfig[] = [
       "Explain how to use economic models for business forecasting",
       "How do externalities affect managerial decision-making processes?"
     ]
+  },
+  {
+    id: 'CristobalBotBPESEntre',
+    name: 'CristobalBot Entrepreneurship',
+    module: 'Entrepreneurship',
+    program: 'BPES',
+    assistantId: 'asst_CG6BAJsKs71cRhzYQBpcRoJe',
+    instructor: 'Cristobal Support Bot',
+    description: 'Get expert guidance on entrepreneurship concepts, startup strategies, and business development. This AI assistant is trained to help with your Entrepreneurship module studies.',
+    backgroundColor: 'from-cyan-50 to-blue-50',
+    primaryColor: 'cyan',
+    samplePrompts: [
+      "What are the key components of a successful business plan?",
+      "How do I validate my business idea and assess market opportunity?",
+      "What funding options are available for early-stage startups?",
+      "How do I build and manage an effective startup team?"
+    ]
   }
 ];
 
