@@ -153,7 +153,7 @@ export const bots: BotConfig[] = [
     name: 'CristobalBot Entrepreneurship',
     module: 'Entrepreneurship',
     program: 'BPES',
-    assistantId: 'asst_RkPHveeGRjjHdp5lRpnjErsR',
+    assistantId: 'asst_CG6BAJsKs71cRhzYQBpcRoJe',
     instructor: 'Cristobal Support Bot',
     description: 'Get expert guidance on entrepreneurship concepts, startup strategies, and business development. This AI assistant is trained to help with your Entrepreneurship module studies.',
     backgroundColor: 'from-cyan-50 to-blue-50',
